@@ -6,6 +6,8 @@ use App\Model\Question;
 use Illuminate\Http\Request;
 use App\Http\Resources\QuestionResource;
 
+use Symfony\Component\HttpFoundation\Response;
+
 class QuestionController extends Controller
 {
     /**
@@ -73,7 +75,8 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        //
+        $question->update($request->all());
+        return request('Updated', Response::HTTP_CREATED);
     }
 
     /**
@@ -86,6 +89,6 @@ class QuestionController extends Controller
     {
         //
         $question->delete();
-        return response(null, Response::HTTP_NO_CONTENT);
+        return response(null, Response::HTTP_NOT_FOUND);
     }
 }
